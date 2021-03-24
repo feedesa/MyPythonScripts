@@ -1,4 +1,5 @@
 import pymysql
+from tkinter import messagebox
 
 class Socios():
     def abrir(self):
@@ -12,24 +13,69 @@ class Socios():
         '''
         bbdd=self.abrir()
         cursor=bbdd.cursor()
-        sql = "INSERT INTO SOCIOS ( id, nombre)\
-            values( '({})','{}')".format(datos[0],datos[1] )
+        sql = "INSERT INTO Socios (NOMBRE, CUOTAPAGA)\
+            values('{}','{}')".format(datos[0],datos[1])
         print (sql)
-        #sql="insert into articulos(descripcion, precio) values (%s,%s)"
-        try:
-            cursor.execute(sql)
-            bbdd.commit()
-            #messagebox.showinfo(message = "registro exitoso", title = "Aviso")
-        except:
-            bbdd.rollback()
-            #messagebox.showinfo(message= "No registrado", title = "Aviso" )
+
+        
+        cursor.execute(sql)
+        bbdd.commit()
+        messagebox.showinfo(message = "registro exitoso", title = "Aviso")
+        # except:
+        #     bbdd.rollback()
+        #     messagebox.showinfo(message= "No registrado", title = "Aviso" )
 
         bbdd.close()
 
 
 
-    # cursor= bbdd.cursor()
- 
-    # cursor.execute("CREATE TABLE Socios (id int, NOMBRE VARCHAR(50), NUMERO_DE_SOCIO VARCHAR(2))")
+    # def altaCuota(self,datocuota):
+    #     bbdd=self.abrir()
 
-    # cursor.execute ("ALTER TABLE Socios ADD COLUMN SEXO VARCHAR(1)")
+    #     cursor=bbdd.cursor()
+
+    #     sql = "INSERT INTO SOCIOS (nombre, sexo )\
+    #         values( '{}','{}')".format(datos[0],datos[1] )
+    #     print (sql)
+    #     #sql="insert into articulos(descripcion, precio) values (%s,%s)"
+    #     try:
+    #         cursor.execute(sql)
+    #         bbdd.commit()
+    #         #messagebox.showinfo(message = "registro exitoso", title = "Aviso")
+    #     except:
+    #         bbdd.rollback()
+    #         #messagebox.showinfo(message= "No registrado", title = "Aviso" )
+
+    #     bbdd.close()
+
+
+# bbdd= pymysql.connect( host= "localhost", user= "root", passwd="", db= "ejemplo1")
+
+
+# cursor= bbdd.cursor()
+ 
+# cursor.execute("DELETE FROM SOCIOS WHERE ID= 3")
+    
+
+# bbdd.commit()
+# bbdd.close()
+
+
+
+
+
+
+
+
+# bbdd= pymysql.connect( host= "localhost", user= "root", passwd="", db= "ejemplo1")
+
+
+# cursor= bbdd.cursor()
+ 
+# cursor.execute("ALTER TABLE SOCIOS AUTO_INCREMENT = 1")
+    
+# # "CREATE TABLE Socios (id INT PRIMARY KEY AUTO_INCREMENT, NOMBRE VARCHAR(50), CUOTAPAGA VARCHAR(2))")
+
+# bbdd.commit()
+# bbdd.close()
+
