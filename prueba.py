@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 import conexionbasedato as conec
+from tkinter import scrolledtext as st
 
 
 class formulario():
@@ -13,10 +14,8 @@ class formulario():
         self.w.geometry("600x500")
         self.engloba = ttk.Notebook(self.w)
         self.engloba.grid(row=0, column=0,padx=10, pady=10)
-        # self.crear_solapa_consultasocio()
         self.crear_solapa_socio_cuota()
-        # # self.listado_completo_socio()
-        # self.crear_solapa_cuota()
+        self.crear_solapa_mostrarlistado()
         self.w.mainloop()
 
 
@@ -43,32 +42,28 @@ class formulario():
         self.button1=ttk.Button(self.pagina1, text="confirmar", command= self.agregarSocioCuota)
         self.button1.grid(column=0, row=1, padx=4, pady=4)
 
-    # def crear_solapa_cuota(self):
-    #     self.pagina2=ttk.Frame(self.engloba)
-    #     self.engloba.add(self.pagina2, text= "Cuota")
-    #     self.labelframe2=ttk.LabelFrame(self.pagina2, text="Socio")
-    #     self.labelframe2.grid(column=0, row=0, padx=5, pady=10)
+    def crear_solapa_mostrarlistado(self):
+        self.pagina2=ttk.Frame(self.engloba)
+        self.engloba.add(self.pagina2, text= "Consultar Listado de socios")
+        self.labelframe2=ttk.LabelFrame(self.pagina2, text="listado de socio")
+        self.labelframe2.pack()
 
-    #     self.labelCS=tk.Label(self.labelframe2, text="Nombre de socio")
-    #     self.labelCS.grid(column=0, row=0, padx=4, pady=4)
+        self.boton1=ttk.Button(self.labelframe2, text="Ver listado completo", command=self.fetchall)
+        self.boton1.pack()
 
+        self.scrolledtext= st.ScrolledText(self.labelframe2,width=50, height=10)
+        self.scrolledtext.pack()
+    
+    def fetchall(self):
 
+        respuesta=self.so.mostrarlistadosocio()
+        self.scrolledtext.delete('1.0', tk.END)
+        self.scrolledtext.insert('1.0', respuesta)
 
-    #     self.labelCS1=tk.Label(self.labelframe2,text= "pago de cuota")
-    #     self.labelCS1.grid(column=0, row=1, padx=4, pady=4)
-
-
-    #     self.string_socio= tk.StringVar()
-    #     self.entry_socio=tk.Entry(self.labelframe2, textvariable= self.string_socio)
-    #     self.entry_socio.grid(column=1, row=0, padx=4, pady=4)
-
-    #     self.pagocuota=tk.StringVar()
-    #     self.entrypagocuota=tk.Entry(self.labelframe2, textvariable= self.pagocuota)
-    #     self.entrypagocuota.grid (column=1, row=1, padx=4, pady=4)
-
-    #     self.button2=ttk.Button(self.pagina2, text="buscar", command=self.agregarSocioCuota)
-    #     self.button2.grid(column=0, row=1, padx=4, pady=4)
-
+        
+        # listado=self.so.mostrarlistadosocio()
+        # for fila in listado:
+        #     self.scrolledtext1.insert(tk.END, "id:"+str(fila[0])+"\nnombre:"+str(fila)[1]+"\ncuota:"+str(fila[2])+"\n\n")
 
 
 

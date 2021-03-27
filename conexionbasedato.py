@@ -27,13 +27,55 @@ class Socios():
 
         bbdd.close()
 
+    def mostrarlistadosocio(self):
+        bbdd= self.abrir()
+        cursor=bbdd.cursor()
+        sql="SELECT * FROM socios"
+        
+        cursor.execute(sql)
+        print(sql)
+        datoslistadocompleto= cursor.fetchall()
+        bbdd.commit()
+        print(datoslistadocompleto)
+        bbdd.close()
+        for lista in datoslistadocompleto:
+            print(lista)
+        return lista
 
 
-    # def altaCuota(self,datocuota):
-    #     bbdd=self.abrir()
 
-    #     cursor=bbdd.cursor()
 
+
+
+
+    # def editarTabla(self, a_editar):
+
+    #     bbdd= pymysql.connect( host= "localhost", user= "root", passwd="", db= "ejemplo1")
+
+
+    #     cursor= bbdd.cursor()
+
+    #     sql="ALTER TABLE SOCIOS AUTO_INCREMENT = 1"
+        
+    #     bbdd.commit()
+
+    #     cursor.execute(sql)
+
+    #     print(sql)
+
+    #     bbdd.close()
+        
+
+
+
+
+
+
+    
+    
+    
+    
+    
     #     sql = "INSERT INTO SOCIOS (nombre, sexo )\
     #         values( '{}','{}')".format(datos[0],datos[1] )
     #     print (sql)
