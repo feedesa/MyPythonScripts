@@ -48,23 +48,42 @@ class formulario():
         self.labelframe2=ttk.LabelFrame(self.pagina2, text="listado de socio")
         self.labelframe2.pack()
 
-        self.boton1=ttk.Button(self.labelframe2, text="Ver listado completo", command=self.fetchall)
+        self.boton1=ttk.Button(self.labelframe2, text="Ver listado completo", command=self.devolverlistado)
         self.boton1.pack()
 
-        self.scrolledtext= st.ScrolledText(self.labelframe2,width=50, height=10)
-        self.scrolledtext.pack()
-    
-    def fetchall(self):
-        respuesta = self.so.mostrarlistadosocio()
-        self.scrolledtext.delete('1.0', tk.END)
-
-        for tupla in respuesta:
-            #currentText = self.scrolledtext.get('1.0', tk.END)
-            self.scrolledtext.insert( tk.END, '\nID:'+ str(tupla[0]) 
-                                             +'\nNombre:' + tupla[1]
-                                             +'\nCuota:'  + tupla[2]
-                                             +'\n')
+        self.tabla = ttk.Treeview(self.labelframe2, columns = ("precio", "cantidad"))
+        # self.tabla.insert("", END, text= "principie", values= ("10","15"))
+        self.tabla.pack()
+        self.tabla.heading("#0",text= "Id")
+        self.tabla.heading("precio", text="Nombre")
+        self.tabla.heading("cantidad", text = "cuota")
         
+    def devolverlistado(self):
+        a_borrar = self.tabla.get_children()
+        for i in a_borrar:
+
+            self.tabla.delete(i) 
+
+        respuesta = self.so.mostrarlistadosocio()
+        
+        for i in respuesta:
+
+            self.tabla.insert("", END, text= i[0], values = (i[1], i[2]))    
+        
+    
+
+    # def fetchall(self):
+    #     respuesta = self.so.mostrarlistadosocio()
+    #     self.scrolledtext.delete('1.0', tk.END)
+
+    #     for tupla in respuesta:
+    #         #currentText = self.scrolledtext.get('1.0', tk.END)
+    #         self.scrolledtext.insert( tk.END, '\nID:'+ str(tupla[0]) 
+    #                                          +'\nNombre:' + tupla[1]
+    #                                          +'\nCuota:'  + tupla[2]
+    #                                          +'\n')
+        
+
 
 
 
