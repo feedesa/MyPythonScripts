@@ -16,6 +16,8 @@ class formulario():
         self.engloba.grid(row=0, column=0,padx=10, pady=10)
         self.crear_solapa_socio_cuota()
         self.crear_solapa_mostrarlistado()
+        self.crear_Solapa_Buscar_Letra_Nombre()
+        self.nombre_A_Buscar()
         self.w.mainloop()
 
 
@@ -51,12 +53,11 @@ class formulario():
         self.boton1=ttk.Button(self.labelframe2, text="Ver listado completo", command=self.devolverlistado)
         self.boton1.pack()
 
-        self.tabla = ttk.Treeview(self.labelframe2, columns = ("precio", "cantidad"))
-        # self.tabla.insert("", END, text= "principie", values= ("10","15"))
+        self.tabla = ttk.Treeview(self.labelframe2, columns = ("Nombre", "cuota"))
         self.tabla.pack()
         self.tabla.heading("#0",text= "Id")
-        self.tabla.heading("precio", text="Nombre")
-        self.tabla.heading("cantidad", text = "cuota")
+        self.tabla.heading("Nombre", text="Nombre")
+        self.tabla.heading("cuota", text = "cuota")
         
     def devolverlistado(self):
         a_borrar = self.tabla.get_children()
@@ -70,7 +71,40 @@ class formulario():
 
             self.tabla.insert("", END, text= i[0], values = (i[1], i[2]))    
         
-    
+    def crear_Solapa_Buscar_Letra_Nombre(self):
+        self.pagina3=ttk.Frame(self.engloba)
+        self.engloba.add(self.pagina3, text= "Buscar Socio")
+        self.labelframe3= LabelFrame(self.pagina3,text="Buscar por letra de nombre")
+        # self.labelframe3.grid(column=0, row=0, padx=5, pady=10)       
+        self.labelframe3.pack()
+        self.label3= tk.Label(self.labelframe3, text=" Poner la primera letra del nombre del socio a buscar")
+        # self.label3.grid(column=0, row=0, padx=4, pady=4)
+        self.label3.pack()
+        self.letra_nombre_a_buscar= tk.StringVar()
+        self.entry_letra_nombre_a_buscar=tk.Entry(self.labelframe3, textvariable= self.letra_nombre_a_buscar)
+    #     self.entry_letra_nombre_a_buscar.grid(column=1, row=0, padx=4, pady=4)
+        self.entry_letra_nombre_a_buscar.pack()
+        self.boton3=ttk.Button(self.labelframe3, text="Ver listado completo", command=self.nombre_A_Buscar)
+        self.boton3.pack()
+
+        
+        def nombre_A_Buscar(self):
+            pass
+        #     lista = self.so.mostrarlistadosocio()
+            # for i in lista:
+            #     if i == self.letra_nombre_a_buscar:
+            #         print(hola)
+
+
+        
+        
+        
+        # self.tabla2 = ttk.Treeview(self.labelframe3, columns = ("Nombre", "cuota"))
+        # self.tabla2.pack()
+        # self.tabla2.heading("#0",text= "Id")
+        # self.tabla2.heading("Nombre", text="Nombre")
+        # self.tabla2.heading("cuota", text = "cuota")
+
 
     # def fetchall(self):
     #     respuesta = self.so.mostrarlistadosocio()
