@@ -31,16 +31,13 @@ class Socios():
         bbdd= self.abrir()
         cursor=bbdd.cursor()
         sql="SELECT * FROM socios"
-        
         cursor.execute(sql)
-        print(sql)
         datoslistadocompleto= cursor.fetchall()
         bbdd.commit()
-        print(datoslistadocompleto)
         bbdd.close()
-        for lista in datoslistadocompleto:
-            print(lista)
-        return lista
+        # for lista in datoslistadocompleto:
+        #     print(lista)
+        return datoslistadocompleto
 
 
 

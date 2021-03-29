@@ -55,15 +55,17 @@ class formulario():
         self.scrolledtext.pack()
     
     def fetchall(self):
-
-        respuesta=self.so.mostrarlistadosocio()
+        respuesta = self.so.mostrarlistadosocio()
         self.scrolledtext.delete('1.0', tk.END)
-        self.scrolledtext.insert('1.0', respuesta)
 
+        for tupla in respuesta:
+            #currentText = self.scrolledtext.get('1.0', tk.END)
+            self.scrolledtext.insert( tk.END, '\nID:'+ str(tupla[0]) 
+                                             +'\nNombre:' + tupla[1]
+                                             +'\nCuota:'  + tupla[2]
+                                             +'\n')
         
-        # listado=self.so.mostrarlistadosocio()
-        # for fila in listado:
-        #     self.scrolledtext1.insert(tk.END, "id:"+str(fila[0])+"\nnombre:"+str(fila)[1]+"\ncuota:"+str(fila[2])+"\n\n")
+
 
 
 
@@ -78,7 +80,6 @@ class formulario():
 
 
 form1=formulario()
-
 
 # tuplatest=(5, "dada" )
 # form1.so.alta(tuplatest)
