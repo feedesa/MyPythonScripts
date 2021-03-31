@@ -17,7 +17,6 @@ class formulario():
         self.crear_solapa_socio_cuota()
         self.crear_solapa_mostrarlistado()
         self.crear_Solapa_Buscar_Letra_Nombre()
-        self.nombre_A_Buscar()
         self.w.mainloop()
 
 
@@ -52,24 +51,17 @@ class formulario():
 
         self.boton1=ttk.Button(self.labelframe2, text="Ver listado completo", command=self.devolverlistado)
         self.boton1.pack()
+        self.tabla = self.crearTabla( self.labelframe2,("Nombre","Cuota"))
 
-        self.tabla = ttk.Treeview(self.labelframe2, columns = ("Nombre", "cuota"))
-        self.tabla.pack()
-        self.tabla.heading("#0",text= "Id")
-        self.tabla.heading("Nombre", text="Nombre")
-        self.tabla.heading("cuota", text = "cuota")
         
     def devolverlistado(self):
-        a_borrar = self.tabla.get_children()
-        for i in a_borrar:
-
-            self.tabla.delete(i) 
+        self.limpiar_Tabla()
 
         respuesta = self.so.mostrarlistadosocio()
-        
-        for i in respuesta:
-
-            self.tabla.insert("", END, text= i[0], values = (i[1], i[2]))    
+        print ( "respuesta" )
+        print ( respuesta )
+        self.insertar_Tabla(self.tabla, respuesta )    
+   
         
     def crear_Solapa_Buscar_Letra_Nombre(self):
         self.pagina3=ttk.Frame(self.engloba)
@@ -81,29 +73,71 @@ class formulario():
         # self.label3.grid(column=0, row=0, padx=4, pady=4)
         self.label3.pack()
         self.letra_nombre_a_buscar= tk.StringVar()
+        self.letra_nombre_a_buscar.set("si")
         self.entry_letra_nombre_a_buscar=tk.Entry(self.labelframe3, textvariable= self.letra_nombre_a_buscar)
     #     self.entry_letra_nombre_a_buscar.grid(column=1, row=0, padx=4, pady=4)
         self.entry_letra_nombre_a_buscar.pack()
-        self.boton3=ttk.Button(self.labelframe3, text="Ver listado completo", command=self.nombre_A_Buscar)
+        self.boton3=ttk.Button(self.labelframe3, text="Ver listado completo",command=self.nombre_A_Buscar)
         self.boton3.pack()
+        self.tablaNombreABuscar = self.crearTabla( self.labelframe3,("Nombre","Cuota"))
 
         
-        def nombre_A_Buscar(self):
-            pass
-        #     lista = self.so.mostrarlistadosocio()
-            # for i in lista:
-            #     if i == self.letra_nombre_a_buscar:
-            #         print(hola)
+    def nombre_A_Buscar(self): 
+        letra_De_Nombre_A_Buscar = self.letra_nombre_a_buscar.get()
+        tupla = self.so.mostrarlistadosocio()
+        self.acumulador_De_Tupla = [] # lista vacia
+
+        for i in tupla:
+            if i[2].upper() == letra_De_Nombre_A_Buscar.upper():
+                self.acumulador_De_Tupla.append( i )
+        print("self.acumulador_De_Tupla")
+        print(self.acumulador_De_Tupla)
+        #####
+        self.limpiar_Tabla()
+
+        self.insertar_Tabla(self.tablaNombreABuscar,self.acumulador_De_Tupla )    
+
+
+    def insertar_Tabla(self, tabla, tuplas):
+        for i in tuplas:
+            tabla.insert("", tk.END, text= i[0], values = (i[1], i[2])) 
+
+            
+    def limpiar_Tabla(self):
+
+        a_borrar = self.tabla.get_children()
+        for i in a_borrar:
+
+            self.tabla.delete(i) 
+
+        
+
+    def crearTabla (self,padreDeTabla,columnas):
+        '''
+        padreDeTabla: UI parent
+        columnas    : table's columns
+        '''
+        
+        tabla = ttk.Treeview( padreDeTabla , columns = columnas )
+        tabla.pack()
+        tabla.heading("#0",text= "Id")
+        for i in columnas:
+            tabla.heading( i , text = i )
+        return tabla
+
+
+
+
+
+            # if i[1] == letra_De_Nombre_A_Buscar:
+            #     print("hola")
+            # # print(i[1])
+
+            #     print(hola)
 
 
         
         
-        
-        # self.tabla2 = ttk.Treeview(self.labelframe3, columns = ("Nombre", "cuota"))
-        # self.tabla2.pack()
-        # self.tabla2.heading("#0",text= "Id")
-        # self.tabla2.heading("Nombre", text="Nombre")
-        # self.tabla2.heading("cuota", text = "cuota")
 
 
     # def fetchall(self):
